@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+$fa-font-path: '../node_modules/font-awesome/fonts';
+@import '../node_modules/font-awesome/scss/font-awesome';
+
+* { 
+  box-sizing: border-box; 
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 12px;
+  background-color: #e4e7ea;
+  color: #636e7b;
+
+  @media (min-width: 640px) {
+    font-size: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 21px;
+  }
+
+}
+
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.clearfix {
+  clear: both;
+}
