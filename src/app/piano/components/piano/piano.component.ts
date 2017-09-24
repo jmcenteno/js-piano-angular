@@ -14,7 +14,7 @@ export class PianoComponent implements OnInit {
 
   notes: Note[];
   showInstructions: boolean;
-  private song: Songs.Demo;
+  song: Songs.Demo;
 
   constructor(private notesService: NotesService) { }
 
