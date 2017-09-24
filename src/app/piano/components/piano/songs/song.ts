@@ -1,6 +1,6 @@
 export class Song {
 
-  private interval: number;
+  private interval: NodeJS.Timer;
   private counter: number;
   protected durations: any;
   isPlaying: boolean;
@@ -30,7 +30,7 @@ export class Song {
 
     this.isPlaying = true;
     this.counter = 0;
-    this.interval = window.setInterval(() => {
+    this.interval = global.setInterval(() => {
 
       if (score[this.counter]) {
         this.playNote(score[this.counter].keyCode, score[this.counter].duration);
