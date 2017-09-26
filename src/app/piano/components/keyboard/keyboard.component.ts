@@ -25,14 +25,18 @@ export class KeyboardComponent implements OnInit {
     window.addEventListener('keydown', this.play.bind(this));
     window.addEventListener('keyup', this.stop.bind(this));
 
+    window.addEventListener('touchstart', this.play.bind(this));
+    window.addEventListener('touchend', this.stop.bind(this));
+
   }
 
   play(e: Event) {
 
     e.preventDefault();
 
-    const keyCode: number = e['keyCode'];
-    const note: Note = this.getNoteByKeyCode(e['keyCode']);
+    const element = <Element>e.target;
+    let keyCode: number = e['keyCode'] || element.getAttribute('data-key');
+    const note: Note = this.getNoteByKeyCode(keyCode);
 
     if (!note) {
       return;
@@ -40,14 +44,21 @@ export class KeyboardComponent implements OnInit {
 
     note.sound.play();
 
+    // the ";" key emits different keyCodes on Chrome and Firefox
+    // this is a cheap attempt to solve that problem
+    if (keyCode === 186) {
+      keyCode = 59;
+    }
+
     document.querySelector(`li[data-key="${keyCode}"]`).classList.add('playing');
 
   }
 
   stop(e: Event) {
 
-    const keyCode: number = e['keyCode'];
-    const note: Note = this.getNoteByKeyCode(e['keyCode']);
+    const element = <Element>e.target;
+    let keyCode: number = e['keyCode'] || element.getAttribute('data-key');
+    const note: Note = this.getNoteByKeyCode(keyCode);
 
     if (!note) {
       return;
@@ -55,12 +66,20 @@ export class KeyboardComponent implements OnInit {
 
     note.sound.stop();
 
+    // the ";" key emits different keyCodes on Chrome and Firefox
+    // this is a cheap attempt to solve that problem
+    if (keyCode === 186) {
+      keyCode = 59;
+    }
+
     document.querySelector(`li[data-key="${keyCode}"]`).classList.remove('playing');
 
   }
 
   private getNoteByKeyCode(keyCode: number): Note {
 
+    // the ";" key emits different keyCodes on Chrome and Firefox
+    // this is a cheap attempt to solve that problem
     if (keyCode === 186) {
       keyCode = 59;
     }
